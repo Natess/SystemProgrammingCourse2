@@ -6,6 +6,7 @@ public class PlayerCharacter : Character
 {
     [Range(0, 100)] [SerializeField] private int health = 100;
     [Range(0.5f, 10.0f)] [SerializeField] private float movingSpeed = 8.0f;
+    [Range(0.5f, 10.0f)] [SerializeField] private float rotateSpeed = 2.0f;
     [SerializeField] private float acceleration = 3.0f;
     private const float gravity = -9.8f;
     private CharacterController characterController;
@@ -59,7 +60,9 @@ public class PlayerCharacter : Character
         else
         {
             transform.position = Vector3.SmoothDamp(transform.position,
-            serverPosition, ref currentVelocity, movingSpeed * Time.deltaTime);
+                serverPosition, ref currentVelocity, movingSpeed * Time.deltaTime);
+            transform.rotation = serverRotation;
+           // transform.rotation = Quaternion.Slerp(transform.rotation, serverRotation, Time.deltaTime * rotateSpeed);
         }
     }
 
